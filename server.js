@@ -15,8 +15,8 @@
  *  - multiparty (for parsing request payloads)
  *  - mkdirp (for "mkdir -p" support)
  */
-const onUpload = require("./business/onUpload");
-const onDeleteFile = require("./business/onDeleteFile");
+const onUpload = require("./modules/onUpload");
+const onDeleteFile = require("./modules/onDeleteFile");
 // Dependencies
 const express = require("express"),
     path = require("path"),
