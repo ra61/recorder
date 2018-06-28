@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Recorder</title>
+  <script type="text/javascript" src='js/jquery.js'></script>
+  <script type="text/javascript" src="js/swfobject.js"></script>
+  <script type="text/javascript" src="js/recorder.js"></script>
+  <script type="text/javascript" src="business/main.js"></script>
+  <script type="text/javascript" src="business/fw.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap.css">
+</head>
+
+<body>
+  <div style="width: 300px;height: 260px;float:left;">
+    <div class="container-fluid">
+      <form class="form-horizontal">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              录音机
+            </h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-4 control-label">音道：</label>
+              <div class="col-sm-7">
+                <select id="numberOfChannels" class="form-control">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label class="col-sm-4 control-label">采样率：</label>
+              <div class="col-sm-7">
+                <select id="bitDepth" class="form-control">
+                  <option value="8">8</option>
+                  <option value="16">16</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label class="col-sm-4 control-label">格式：</label>
+              <div class="col-sm-7">
+                <select id="format" class="form-control">
+                  <option value="wav">wav</option>
+                  <option value="pcm">pcm</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="text-center">
+              <button id="init" type="button" class="btn btn-primary">创建</button>
+              <button id="reset" type="button" class="btn btn-primary" disabled>重置</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+      <div id="recorder-audio">
+        <div class="text-center">
+          <button id="record_button" class="btn btn-primary">开始录音</button>
+          <button id="stop_recording_button" class="btn btn-primary hide">结束录音</button>
+        </div>
+        <div class="text-center">
+          <button id="play_button" class="btn btn-primary">
+            <img src="images/play.png" />
+          </button>
+          <button id="pause_button" class="btn btn-primary hide">
+            <img src="images/pause.png" />
+          </button>
+          <div style="width: 100px;height: 5px;position: relative;">
+            <div class="level"></div>
+          </div>
+        </div>
+      </div>
+      
+      <pre id="log" class="bg-info" style="display: none;"></pre>
+  
+    </div>
+  </div>
+
+  <div id="recordingslist">
+    
+  </div>
+
+  <div class="details">
+    <span id="save_button">
+      <span id="flashcontent">
+        <p>Your browser must have JavaScript enabled and the Adobe Flash Player installed.</p>
+      </span>
+    </span>
+  </div>
+
+</body>
+</html>
+
+
