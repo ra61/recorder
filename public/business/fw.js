@@ -18,7 +18,7 @@ window.onload = function () {
             return;
         }
 
-        FWRecorder.configure(bitDepth.value, 100, 100, 0);
+        FWRecorder.configure(bitDepth.value, 100, 0, 0);
         FWRecorder.setUseEchoSuppression(true);
         FWRecorder.setLoopBack(false);
 

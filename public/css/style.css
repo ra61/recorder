@@ -136,11 +136,21 @@
 } */
 
 
-.level {
+.duration {
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     left:0;
-    background: linear-gradient(to right, #8bb300 0%, #3b9d00 100%);
+    background: #ccc;
+}
+
+.slide {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color:#666;
+    top: -3px;
+    left: 0px;
 }

@@ -62,10 +62,10 @@ $(function () {
       case "recording_stopped":
         // name = arguments[1];
         // $controls = controlsEl(name);
-        // var duration = arguments[2];
+        var duration = arguments[2];
         // FWRecorder.show();
         // setControlsClass($controls, CLASS_PLAYBACK_READY);
-        // $('#duration').text(duration.toFixed(4) + " seconds");
+        $('#duration').text(duration.toFixed(4) + " seconds");
         break;
 
       case "microphone_level":
@@ -178,7 +178,7 @@ $(function () {
       return;
     }
 
-    FWRecorder.configure(16, 100, 100, 0);
+    FWRecorder.configure(16, 100, 50, 0);
     FWRecorder.setUseEchoSuppression(true);
     FWRecorder.setLoopBack(false);
 
