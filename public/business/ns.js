@@ -3,8 +3,8 @@ ns.createRecorder = {};
 ns.createElement = {};
 ns.createRecorder.wav = function () {
     var recorder = new Recorder({
-        monitorGain: parseInt(monitorGain.value, 10),
-        recordingGain: parseInt(recordingGain.value, 10),
+        monitorGain: 0,
+        recordingGain: 1,
         numberOfChannels: parseInt(numberOfChannels.value, 10),
         wavBitDepth: parseInt(bitDepth.value, 10),
         encoderPath: "./vendor/waveWorker.min.js"
@@ -15,8 +15,8 @@ ns.createRecorder.wav = function () {
 
 ns.createRecorder.pcm = function () {
     var recorder = new Recorder({
-        monitorGain: parseInt(monitorGain.value, 10),
-        recordingGain: parseInt(recordingGain.value, 10),
+        monitorGain: 0,
+        recordingGain: 1,
         numberOfChannels: parseInt(numberOfChannels.value, 10),
         wavBitDepth: parseInt(bitDepth.value, 10),
         encoderPath: "./vendor/pcmWorker.min.js"
@@ -63,5 +63,6 @@ ns.createElement.pcm = function (typedArray) {
 }
 
 ns.screenLogger = function(text, data) {
+    log.style = "display:block;";
     log.innerHTML = text + " " + (data || '');
 }
