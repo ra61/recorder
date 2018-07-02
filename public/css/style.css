@@ -142,7 +142,16 @@
     top: 0;
     bottom: 0;
     left:0;
-    background: #ccc;
+    background: #5a5a5a;
+}
+
+.played {
+    position: absolute;
+    left:0;
+    top:0;
+    width: 0px;
+    height: 2px;
+    background-color: #4285f4;
 }
 
 .slide {
@@ -150,7 +159,25 @@
     width: 10px;
     height: 10px;
     border-radius: 5px;
-    background-color:#666;
-    top: -3px;
+    background-color:#4285f4;
+    top: -4px;
     left: 0px;
+}
+
+.control_panel {
+    white-space: nowrap;
+    padding: 0;
+    margin: 2px;
+    vertical-align: middle;
+    height: 24px;
+    background-color: #e7e7e7;
+    position: relative;
+}
+
+.level {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(to right, #8bb300 0%, #3b9d00 100%);
 }

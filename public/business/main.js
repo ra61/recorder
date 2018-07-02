@@ -65,11 +65,12 @@ $(function () {
         var duration = arguments[2];
         // FWRecorder.show();
         // setControlsClass($controls, CLASS_PLAYBACK_READY);
-        $('#duration').text(duration.toFixed(4) + " seconds");
+        // $('#duration').text(duration.toFixed(4) + " seconds");
+        $('#duration').text(formatTime(duration.toFixed(0)));
         break;
 
       case "microphone_level":
-        $level.css({width: arguments[1] * 50 + '%'});
+        $('#level').css({width: arguments[1] * 50 + '%'});
         break;
 
       case "observing_level":
@@ -95,6 +96,8 @@ $(function () {
         break;
 
       case "stopped":
+        $('#play_button').removeClass('hide');
+        $('#pause_button').addClass('hide');
         // name = arguments[1];
         // $controls = controlsEl(name);
         // setControlsClass($controls, CLASS_PLAYBACK_READY);
@@ -161,6 +164,23 @@ $(function () {
   function recorderEl() {
     return $('#recorderApp');
   }
+
+  function formatTime(seconds) {
+    var min = Math.floor(seconds / 60),
+      second = seconds % 60,
+      hour, newMin, time;
+
+    if (min > 60) {
+      hour = Math.floor(min / 60);
+      newMin = min % 60;
+    }
+
+    if (second < 10) { second = '0' + second; }
+    // if (min < 10) { min = '0' + min; }
+
+    return time = hour ? (hour + ':' + newMin + ':' + second) : (min + ':' + second);
+  }
+
 
 
 //  Button actions -----------------------------------------------------------------------------------------------------
