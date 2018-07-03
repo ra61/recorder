@@ -7,7 +7,7 @@ ns.createRecorder.wav = function () {
         recordingGain: 1,
         numberOfChannels: parseInt(numberOfChannels.value, 10),
         wavBitDepth: parseInt(bitDepth.value, 10),
-        encoderPath: "./vendor/waveWorker.min.js"
+        encoderPath: "vendor/h5/waveWorker.min.js"
     });
 
     return recorder;
@@ -19,7 +19,7 @@ ns.createRecorder.pcm = function () {
         recordingGain: 1,
         numberOfChannels: parseInt(numberOfChannels.value, 10),
         wavBitDepth: parseInt(bitDepth.value, 10),
-        encoderPath: "./vendor/pcmWorker.min.js"
+        encoderPath: "vendor/h5/pcmWorker.min.js"
     });
 
     return recorder;
