@@ -66,3 +66,9 @@ ns.screenLogger = function(text, data) {
     log.style = "display:block;";
     log.innerHTML = text + " " + (data || '');
 }
+
+ns.ieScreenLogger = function(text, data){
+    var log = $('#ie_log');
+    log.css({display:'block'});
+    log.text(text + " " + (data || ''));
+}

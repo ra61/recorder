@@ -6,27 +6,32 @@ var recordingslist = document.getElementById('recordingslist');
 
 if (!Recorder.isRecordingSupported()) {
 
-    // ns.screenLogger("Recording features are not supported in your browser.");
-
+    // 隐藏H5页面
     H5Container.classList.add('hide');
+    // 显示IE页面
     IeContainer.classList.remove('hide');
 
+    // 初始录音机
     var init = document.getElementById('ie_init');
+    // 重置录音机
     var reset = document.getElementById('ie_reset');
-    // var numberOfChannels = document.getElementById('numberOfChannels');
-    var bitDepth = document.getElementById('bitDepth');
-    // var format = document.getElementById('format');
+    // var numberOfChannels = document.getElementById('ie_numberOfChannels');
+    var bitDepth = document.getElementById('ie_bitDepth');
+    // var format = document.getElementById('ie_format');
+    // 开始录音
     var record_button = document.getElementById('record_button');
+    // 停止录音
     var stop_recording_button = document.getElementById('stop_recording_button');
+    // 播放按钮
     var play_button = document.getElementById('play_button');
+    // 暂停按钮
     var pause_button = document.getElementById('pause_button');
-
-    var recordingslist = document.getElementById('recordingslist');
-
     // 播放面板
     var voice_player = document.getElementById('video_player');
     // 保存按钮
     var save_btn = document.getElementById('voice_save');
+    // 音频列表
+    var recordingslist = document.getElementById('recordingslist');
 
     // 创建
     init.addEventListener('click', function () {
@@ -64,6 +69,8 @@ if (!Recorder.isRecordingSupported()) {
         // 隐藏播放面板
         voice_player.classList.add('hide');
         save_btn.innerHTML = '';
+        // 提示
+        ns.ieScreenLogger("Recorder is started");
     });
 
     // 结束录音
@@ -75,22 +82,27 @@ if (!Recorder.isRecordingSupported()) {
         stop_recording_button.classList.add('hide');
         // 显示播放面板
         voice_player.classList.remove('hide');
+        // 提示
+        ns.ieScreenLogger("Recorder is stopped ");
 
     });
 
+    // 保存按钮
     var voice_save = document.getElementById('voice_save');
 
+    // 保存音频
     voice_save.addEventListener('click', function () {
 
         // 音频数据
         var dataBlob = FWRecorder.getBlob('audio');
         var filename = new Date().toISOString() + ".wav";
-
+        // 调用ie特有API
         if (window.navigator.msSaveBlob) {
             window.navigator.msSaveBlob(dataBlob, filename);
         }
     });
 
+    // 播放视频
     play_button.addEventListener('click', function () {
 
         // 切换按钮
@@ -101,13 +113,14 @@ if (!Recorder.isRecordingSupported()) {
         var currentTime;
         // 音频时长
         var duration = FWRecorder.duration('audio');
-
+        // 滑块偏移量
         var slideLeft = $('#progress_slide').position().left;
 
         if (slideLeft <= 0 || slideLeft >= 50) {
-            // 播放
+            // 从头播放
             FWRecorder.playBack('audio');
         } else {
+            // 从设置时间节点播放
             currentTime = duration / 50 * slideLeft;
             FWRecorder.playBackFrom('audio', currentTime);
         }
@@ -117,7 +130,9 @@ if (!Recorder.isRecordingSupported()) {
             currentTime = FWRecorder.getCurrentTime('audio');
             // 进度条
             var progress = parseInt(currentTime / duration * 50);
+            // 滑块偏移量
             $('#progress_slide').css({ left: progress + 'px' });
+            // 播放条长度
             $('#progress_active').css({ width: progress + 'px' });
             // 显示当前播放时间
             $('#playedTime').text(formatTime(currentTime.toFixed(0)));
@@ -133,6 +148,7 @@ if (!Recorder.isRecordingSupported()) {
 
     });
 
+    // 暂停视频
     pause_button.addEventListener('click', function () {
         // 暂停
         FWRecorder.pausePlayBack('audio');
@@ -206,6 +222,7 @@ if (!Recorder.isRecordingSupported()) {
         volume_slide.style.left = '25px';
     });
 
+    // 时间格式化
     function formatTime(seconds) {
         var min = Math.floor(seconds / 60),
             second = seconds % 60,
@@ -224,61 +241,71 @@ if (!Recorder.isRecordingSupported()) {
 
 } else {
 
+    // 显示H5页面
     H5Container.classList.remove('hide');
+    // 隐藏IE页面
     IeContainer.classList.add('hide');
 
     var init = document.getElementById('init');
     var reset = document.getElementById('reset');
     var bitDepth = document.getElementById('bitDepth');
-
+    var startButton = document.getElementById('start_recording');
+    var stopButton = document.getElementById('stop_recording');
 
     var recorder;
     var flag;
 
+    // 初始化录音机
     init.addEventListener("click", function () {
         init.disabled = true;
         reset.disabled = false;
-        control.disabled = false;
+        startButton.disabled = false;
    
         numberOfChannels.disabled = true;
         bitDepth.disabled = true;
         format.disabled = true;
 
+        // 重建录音机
         recorder = ns.createRecorder[format.value]();
 
-        flag = 'start';
-
-        control.onclick = function () {
-            if (flag === 'start') {
-                recorder.start().catch(function (e) {
-                    ns.screenLogger('Error encountered:', e.message);
-                });
-            } else {
-                recorder.stop();
-            }
+        // 开始录音
+        startButton.onclick = function () {
+            recorder.start().catch(function (e) {
+                ns.screenLogger('Error encountered:', e.message);
+            });
         };
 
+        // 结束录音
+        stopButton.onclick = function () {
+            recorder.stop();
+        };
+
+        // 开始录音成功之后响应
         recorder.onstart = function () {
             ns.screenLogger('Recorder is started');
-            flag = 'stop';
-            control.innerHTML = '结束录音';
+            startButton.classList.add('hide');
+            stopButton.classList.remove('hide');
         };
 
+        // 结束录音成功之后响应
         recorder.onstop = function () {
             ns.screenLogger('Recorder is stopped');
-            flag = 'start';
-            control.innerHTML = '开始录音';
+            stopButton.classList.add('hide');
+            startButton.classList.remove('hide');
         };
 
+        // 出现错误时打印日志
         recorder.onstreamerror = function (e) {
             ns.screenLogger('Error encountered: ' + e.message);
         };
 
+        // 录音数据可用时创建播放器面板
         recorder.ondataavailable = function (typedArray) {
             ns.createElement[format.value](typedArray);
         };
     });
 
+    // 重置录音机
     reset.addEventListener("click", function () {
         numberOfChannels.disabled = false;
         bitDepth.disabled = false;
