@@ -20,10 +20,10 @@
     audio { display: block; }
   </style>
 </head>
-<body style="padding-top: 20px;">
+<body style="padding: 20px;">
 
   <div id="H5_container" class="hide">
-    <div style="width: 300px;height: 260px;float:left;" >
+    <div style="width: 360px;" >
       <div class="container-fluid">
         <form class="form-horizontal">
           <div class="panel panel-primary">
@@ -69,17 +69,21 @@
               </div>
             </div>
           </div>
+          
         </form>
-        <div class="text-center" style="margin-bottom: 10px;">
-          <button id="control" class="btn btn-primary" disabled>开始录音</button>
-        </div>
-        <pre id="log" class="bg-info" style="display: none;"></pre>
         
       </div>
     </div>
     
-    <div style="width: 400px;float:left;">
-      <div class="container-fluid">
+    <div style="width: 360px;">
+      <div class="text-center" style="margin-bottom: 10px;">
+        <button id="control" class="btn btn-primary" disabled>开始录音</button>
+      </div>
+      <pre id="log" class="bg-info" style="display: none;"></pre>
+    </div>
+
+    <div style="width: 360px;">
+      <!-- <div class="container-fluid"> -->
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">录音列表</h3>
@@ -88,12 +92,13 @@
             <ul id="recordingslist" style="padding: 0;"></ul>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
+    
   </div>
   <div id="Ie_container" class="hide">
-    <div style="width: 300px;height: 260px;float:left;">
-      <div class="container-fluid">
+    <div style="width: 380px;">
+      <!-- <div class="container-fluid"> -->
         <form class="form-horizontal">
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -139,43 +144,50 @@
             </div>
           </div>
         </form>
-  
+
   
         <div id="recorder-audio">
           <div class="text-center">
             <button id="record_button" class="btn btn-primary" disabled>开始录音</button>
             <button id="stop_recording_button" class="btn btn-primary hide">结束录音</button>
           </div>
-          <div id="video_player" class="video-player hide">
-            <span id="play_button" class="glyphicon glyphicon-play fs16"></span>
-            <span id="pause_button" class="glyphicon glyphicon-pause fs16 hide"></span>
-            <span style="padding: 0 5px;font-size: 12px;">
-              <em id="playedTime">0:00</em> /
-              <em id="duration">0:00</em>
-            </span>
-            <div id="progress_bar" class="progressBar">
-              <div class="duration"></div>
-              <div id="progress_active" class="progress-active base-active"></div>
-              <div id="progress_slide" class="slide progress-slide"></div>
+          <div class="panel panel-primary" style="margin-top: 20px;">
+            <div class="panel-heading">
+              <h3 class="panel-title">录音列表</h3>
             </div>
-            <div class="volume-icon">
-              <span id="volume_up" class="glyphicon glyphicon-volume-up fs16"></span>
-              <span id="volume_off" class="glyphicon glyphicon-volume-off fs16 hide"></span>
+            <div class="panel-body">
+              <div id="video_player" class="video-player hide">
+                <span id="play_button" class="glyphicon glyphicon-play fs16"></span>
+                <span id="pause_button" class="glyphicon glyphicon-pause fs16 hide"></span>
+                <span style="padding: 0 5px;font-size: 12px;">
+                  <em id="playedTime">0:00</em> /
+                  <em id="duration">0:00</em>
+                </span>
+                <div id="progress_bar" class="progressBar">
+                  <div class="duration"></div>
+                  <div id="progress_active" class="progress-active base-active"></div>
+                  <div id="progress_slide" class="slide progress-slide"></div>
+                </div>
+                <div class="volume-icon">
+                  <span id="volume_up" class="glyphicon glyphicon-volume-up fs16"></span>
+                  <span id="volume_off" class="glyphicon glyphicon-volume-off fs16 hide"></span>
+                </div>
+                <div id="volume_bar" class="volume-bar">
+                  <div class="duration"></div>
+                  <div id="volume_active" class="volume-active base-active"></div>
+                  <div id="volume_slide" class="slide volume-slide"></div>
+                </div>
+                <div class="voice-save">
+                  <span id="voice_save" class="glyphicon glyphicon-save fs16"></span>
+                </div>
+              </div>
             </div>
-            <div id="volume_bar" class="volume-bar">
-              <div class="duration"></div>
-              <div id="volume_active" class="volume-active base-active"></div>
-              <div id="volume_slide" class="slide volume-slide"></div>
-            </div>
-            <div class="voice-save">
-              <span id="voice_save" class="glyphicon glyphicon-save fs16"></span>
-            </div>
-          </div>
+          </div>  
         </div>
   
-        <pre id="log" class="bg-info" style="display: none;"></pre>
+        <pre id="ie_log" class="bg-info" style="display: none;"></pre>
   
-      </div>
+      <!-- </div> -->
     </div>
   
     <div class="details">
@@ -187,7 +199,7 @@
     </div>
   </div>
 
-  <div id="fine-uploader" style="width: 800px;float: left;"></div>
+  <div id="fine-uploader" style="width: 380px;"></div>
 
   <template id="qq-template">
     <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
