@@ -2,7 +2,6 @@
 
 var H5Container = document.getElementById('H5_container');
 var IeContainer = document.getElementById('Ie_container');
-var recordingslist = document.getElementById('recordingslist');
 
 if (!Recorder.isRecordingSupported()) {
 
@@ -30,8 +29,6 @@ if (!Recorder.isRecordingSupported()) {
     var voice_player = document.getElementById('video_player');
     // 保存按钮
     var save_btn = document.getElementById('voice_save');
-    // 音频列表
-    var recordingslist = document.getElementById('recordingslist');
 
     // 创建
     init.addEventListener('click', function () {
@@ -135,7 +132,7 @@ if (!Recorder.isRecordingSupported()) {
             // 播放条长度
             $('#progress_active').css({ width: progress + 'px' });
             // 显示当前播放时间
-            $('#playedTime').text(formatTime(currentTime.toFixed(0)));
+            $('#playedTime').text(ns.formatTime(currentTime.toFixed(0)));
             // 当前播放时间大于音频时长
             if (currentTime >= duration) {
                 $('#played').css({ width: '0px' });
@@ -158,37 +155,11 @@ if (!Recorder.isRecordingSupported()) {
     });
 
     var progress_slide = document.getElementById('progress_slide');
+    var progress_active = document.getElementById('progress_active');
     var progress_bar = document.getElementById('progress_bar');
 
-    progress_slide.onmousedown = function (ev) {
-        ev = ev || window.event;
-        // 计算偏移距离
-        var disX = ev.clientX - progress_slide.offsetLeft;
-        // 开始拖动
-        document.onmousemove = function (ev) {
-            ev = ev || window.event;
-            var l = ev.clientX - disX; // 滑块left偏移量
-            var w = progress_bar.clientWidth; // 进度条宽度
-            // 限制范围
-            if (l < 0) {
-                l = 0;
-            };
-
-            if (l > w - progress_slide.offsetWidth) {
-                l = w - progress_slide.offsetWidth;
-            };
-            // 滑块位置
-            progress_slide.style.left = l + "px";
-
-        };
-
-        //停止拖动 动作写在document上-----------------------------
-        document.onmouseup = function () {
-            document.onmousemove = null;
-        };
-        //阻止默认事件
-        return false;
-    };
+    // 水平拖拽
+    ns.horDrag(progress_slide, progress_active, progress_bar);
 
     progress_bar.addEventListener('click', function (ev) {
         ev = ev || window.event;
@@ -203,6 +174,10 @@ if (!Recorder.isRecordingSupported()) {
     var volume_off = document.getElementById('volume_off');
     var volume_active = document.getElementById('volume_active');
     var volume_slide = document.getElementById('volume_slide');
+    var volume_bar = document.getElementById('volume_bar');
+
+    // 水平拖拽
+    ns.horDrag(volume_slide, volume_active, volume_bar);
 
     volume_up.addEventListener('click', function () {
         // 切换按钮
@@ -221,23 +196,6 @@ if (!Recorder.isRecordingSupported()) {
         volume_active.style.width = '25px';
         volume_slide.style.left = '25px';
     });
-
-    // 时间格式化
-    function formatTime(seconds) {
-        var min = Math.floor(seconds / 60),
-            second = seconds % 60,
-            hour, newMin, time;
-
-        if (min > 60) {
-            hour = Math.floor(min / 60);
-            newMin = min % 60;
-        }
-
-        if (second < 10) { second = '0' + second; }
-        // if (min < 10) { min = '0' + min; }
-
-        return time = hour ? (hour + ':' + newMin + ':' + second) : (min + ':' + second);
-    }
 
 } else {
 
