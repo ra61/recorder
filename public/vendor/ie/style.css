@@ -33,6 +33,7 @@
     top:0;
     height: 2px;
     background-color: #4285f4;
+    cursor: pointer;
 }
 
 .progress-active{
@@ -65,6 +66,7 @@
     border-radius: 5px;
     background-color:#4285f4;
     top: -4px;
+    cursor: pointer;
 }
 
 .progress-slide {
@@ -101,4 +103,13 @@
     width: 36px;
     display: inline-block;
     padding: 0 15px;
+}
+
+#play_button,
+#pause_button,
+#volume_up,
+#volume_off,
+#voice_save {
+    font-size: 16px;
+    cursor: pointer;
 }
