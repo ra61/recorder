@@ -135,7 +135,10 @@ if (!Recorder.isRecordingSupported()) {
             $('#playedTime').text(ns.formatTime(currentTime.toFixed(0)));
             // 当前播放时间大于音频时长
             if (currentTime >= duration) {
-                $('#played').css({ width: '0px' });
+                // 滑块归零
+                $('#progress_slide').css({ left: '0px' });
+                // 播放条归零
+                $('#progress_active').css({ width: '0px' });
                 // 停止播放
                 FWRecorder.stopPlayBack();
                 // 清除循环

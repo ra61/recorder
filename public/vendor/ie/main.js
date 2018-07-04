@@ -198,7 +198,8 @@ $(function () {
       return;
     }
 
-    FWRecorder.configure(16, 100, 50, 0);
+    var bitDepth = document.getElementById('ie_bitDepth');
+    FWRecorder.configure(bitDepth.value, 100, 50, 0);
     FWRecorder.setUseEchoSuppression(true);
     FWRecorder.setLoopBack(false);
 
