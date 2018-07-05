@@ -5,9 +5,9 @@ window.onload = function () {
 
     var init = document.getElementById('init');
     var reset = document.getElementById('reset');
-    // var numberOfChannels = document.getElementById('numberOfChannels');
+    var numberOfChannels = document.getElementById('numberOfChannels');
     var bitDepth = document.getElementById('bitDepth');
-    // var format = document.getElementById('format');
+    var format = document.getElementById('format');
     var record_button = document.getElementById('record_button');
     var stop_recording_button = document.getElementById('stop_recording_button');
     var play_button = document.getElementById('play_button');
@@ -16,7 +16,7 @@ window.onload = function () {
     var recordingslist = document.getElementById('recordingslist');
 
     // 播放面板
-    var voice_player = document.getElementById('video-player');
+    var voice_player = document.getElementById('video_player');
     // 保存按钮
     var save_btn = document.getElementById('voice_save');
 
@@ -75,8 +75,15 @@ window.onload = function () {
     voice_save.addEventListener('click', function(){
 
         // 音频数据
-        var dataBlob = FWRecorder.getBlob('audio');
-        var filename = new Date().toISOString() + ".wav";
+        if (format.value === 'wav') {
+            var dataBlob = FWRecorder.getBlob('audio');
+            var filename = new Date().toISOString() + ".wav";
+        } else {
+            var dataBlob = FWRecorder.getBlob('audio');
+            dataBlob = dataBlob.slice(44);
+            dataBlob = new Blob([dataBlob], { type: 'type/pcm' });
+            var filename = new Date().toISOString() + ".pcm";
+        }
 
         if (window.navigator.msSaveBlob) {
             window.navigator.msSaveBlob(dataBlob, filename);
@@ -115,7 +122,10 @@ window.onload = function () {
             $('#playedTime').text(formatTime(currentTime.toFixed(0)));
             // 当前播放时间大于音频时长
             if(currentTime >= duration){
-                $('#played').css({ width: '0px' });
+                // 滑块归零
+                $('#progress_slide').css({ left: '0px' });
+                // 播放条归零
+                $('#progress_active').css({ width: '0px' });
                 // 停止播放
                 FWRecorder.stopPlayBack();
                 // 清除循环
@@ -136,35 +146,74 @@ window.onload = function () {
     var progress_slide = document.getElementById('progress_slide');
     var progress_bar = document.getElementById('progress_bar');
 
-    progress_slide.onmousedown = function (ev) {
-        ev = ev || window.event;
-        // 计算偏移距离
-        var disX = ev.clientX - progress_slide.offsetLeft;
-        // 开始拖动
-        document.onmousemove = function (ev) {
+    var obj = {
+        slide: progress_slide,
+        bar: progress_bar
+    }
+
+    function horDrag() {
+        var self = this;
+        self.slide.onmousedown = function (ev) {
             ev = ev || window.event;
-            var l = ev.clientX - disX; // 滑块left偏移量
-            var w = progress_bar.clientWidth; // 进度条宽度
-            // 限制范围
-            if (l < 0) {
-                l = 0;
+            // 计算偏移距离
+            var disX = ev.clientX - self.slide.offsetLeft;
+            // 开始拖动
+            document.onmousemove = function (ev) {
+                ev = ev || window.event;
+                var l = ev.clientX - disX; // 滑块left偏移量
+                var w = self.bar.clientWidth; // 进度条宽度
+                // 限制范围
+                if (l < 0) {
+                    l = 0;
+                };
+
+                if (l > w - self.slide.offsetWidth) {
+                    l = w - self.slide.offsetWidth;
+                };
+                // 滑块位置
+                self.slide.style.left = l + "px";
+
             };
 
-            if (l > w - progress_slide.offsetWidth) {
-                l = w - progress_slide.offsetWidth;
+            //停止拖动 动作写在document上-----------------------------
+            document.onmouseup = function () {
+                document.onmousemove = null;
             };
-            // 滑块位置
-            progress_slide.style.left = l + "px";
-
+            //阻止默认事件
+            return false;
         };
+    }
 
-        //停止拖动 动作写在document上-----------------------------
-        document.onmouseup = function () {
-            document.onmousemove = null;
-        };
-        //阻止默认事件
-        return false;
-    };
+    horDrag.call(obj);
+    // progress_slide.onmousedown = function (ev) {
+    //     ev = ev || window.event;
+    //     // 计算偏移距离
+    //     var disX = ev.clientX - progress_slide.offsetLeft;
+    //     // 开始拖动
+    //     document.onmousemove = function (ev) {
+    //         ev = ev || window.event;
+    //         var l = ev.clientX - disX; // 滑块left偏移量
+    //         var w = progress_bar.clientWidth; // 进度条宽度
+    //         // 限制范围
+    //         if (l < 0) {
+    //             l = 0;
+    //         };
+
+    //         if (l > w - progress_slide.offsetWidth) {
+    //             l = w - progress_slide.offsetWidth;
+    //         };
+    //         // 滑块位置
+    //         progress_slide.style.left = l + "px";
+
+    //     };
+
+    //     //停止拖动 动作写在document上-----------------------------
+    //     document.onmouseup = function () {
+    //         document.onmousemove = null;
+    //     };
+    //     //阻止默认事件
+    //     return false;
+    // };
 
     progress_bar.addEventListener('click', function(ev){
         ev = ev || window.event;

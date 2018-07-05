@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <!-- <div id="IE-container" class="hide"> -->
+  <!-- <div id="Ie-container" class="hide"> -->
     <div style="width: 300px;height: 260px;float:left;">
       <div class="container-fluid">
         <form class="form-horizontal">
@@ -27,15 +27,15 @@
               </h3>
             </div>
             <div class="panel-body">
-              <!-- <div class="form-group">
-                <label class="col-sm-4 control-label">音道：</label>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">声道：</label>
                 <div class="col-sm-7">
                   <select id="numberOfChannels" class="form-control">
                     <option value="1">1</option>
                     <option value="2">2</option>
                   </select>
                 </div>
-              </div> -->
+              </div>
     
               <div class="form-group">
                 <label class="col-sm-4 control-label">采样率：</label>
@@ -47,7 +47,7 @@
                 </div>
               </div>
     
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <label class="col-sm-4 control-label">格式：</label>
                 <div class="col-sm-7">
                   <select id="format" class="form-control">
@@ -55,7 +55,7 @@
                     <option value="pcm">pcm</option>
                   </select>
                 </div>
-              </div> -->
+              </div>
     
               <div class="text-center">
                 <button id="init" type="button" class="btn btn-primary">创建</button>
@@ -71,7 +71,7 @@
             <button id="record_button" class="btn btn-primary" disabled>开始录音</button>
             <button id="stop_recording_button" class="btn btn-primary hide">结束录音</button>
           </div>
-          <div id="video-player"  class="video-player hide">
+          <div id="video_player"  class="video-player hide">
             <span id="play_button" class="glyphicon glyphicon-play fs16"></span>
             <span id="pause_button" class="glyphicon glyphicon-pause fs16 hide"></span>
             <span style="padding: 0 5px;font-size: 12px;"> <em id="playedTime">0:00</em> / <em id="duration">0:00</em></span>
@@ -111,6 +111,7 @@
         </span>
       </span>
     </div>
+  <!-- </div> -->
 
 
     <div id="fine-uploader" style="width: 800px;float: left;"></div>
@@ -176,7 +177,7 @@
         </dialog>
       </div>
     </template>
-  <!-- </div> -->
+  
 
   <script>  
     var uploader = new qq.FineUploader({
