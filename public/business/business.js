@@ -14,9 +14,9 @@ if (!Recorder.isRecordingSupported()) {
     var init = document.getElementById('ie_init');
     // 重置录音机
     var reset = document.getElementById('ie_reset');
-    // var numberOfChannels = document.getElementById('ie_numberOfChannels');
+    var numberOfChannels = document.getElementById('ie_numberOfChannels');
     var bitDepth = document.getElementById('ie_bitDepth');
-    // var format = document.getElementById('ie_format');
+    var format = document.getElementById('ie_format');
     // 开始录音
     var record_button = document.getElementById('record_button');
     // 停止录音
@@ -91,8 +91,16 @@ if (!Recorder.isRecordingSupported()) {
     voice_save.addEventListener('click', function () {
 
         // 音频数据
-        var dataBlob = FWRecorder.getBlob('audio');
-        var filename = new Date().toISOString() + ".wav";
+        if(format.value === 'wav'){
+            var dataBlob = FWRecorder.getBlob('audio');
+            var filename = new Date().toISOString() + ".wav";
+        }else{
+            var dataBlob = FWRecorder.getBlob('audio');
+            dataBlob = dataBlob.slice(44);
+            dataBlob = new Blob([dataBlob], {type:'type/pcm'});
+            var filename = new Date().toISOString() + ".pcm";
+        }
+        
         // 调用ie特有API
         if (window.navigator.msSaveBlob) {
             window.navigator.msSaveBlob(dataBlob, filename);
@@ -209,7 +217,9 @@ if (!Recorder.isRecordingSupported()) {
 
     var init = document.getElementById('init');
     var reset = document.getElementById('reset');
+    var numberOfChannels = document.getElementById('numberOfChannels');
     var bitDepth = document.getElementById('bitDepth');
+    var format = document.getElementById('format');
     var startButton = document.getElementById('start_recording');
     var stopButton = document.getElementById('stop_recording');
 
