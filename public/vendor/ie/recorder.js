@@ -113,6 +113,16 @@
       return base64toBlob(base64Data, RECORDED_AUDIO_TYPE);
     },
 
+    getPCMBase64: function (name) {
+      var data = Recorder.recorder.getPCMBase64(name);
+      return data;
+    },
+
+    getPCMBlob: function (name) {
+      var base64Data = Recorder.getPCMBase64(name);
+      return base64toBlob(base64Data, 'type/pcm');
+    },
+
     getCurrentTime: function(name) {
     	return Recorder.recorder.getCurrentTime(name);
     },

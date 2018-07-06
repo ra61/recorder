@@ -95,9 +95,7 @@ if (!Recorder.isRecordingSupported()) {
             var dataBlob = FWRecorder.getBlob('audio');
             var filename = new Date().toISOString() + ".wav";
         }else{
-            var dataBlob = FWRecorder.getBlob('audio');
-            dataBlob = dataBlob.slice(44);
-            dataBlob = new Blob([dataBlob], {type:'type/pcm'});
+            var dataBlob = FWRecorder.getPCMBlob('audio');
             var filename = new Date().toISOString() + ".pcm";
         }
         
