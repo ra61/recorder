@@ -15,6 +15,7 @@ if (!Recorder.isRecordingSupported()) {
     // 重置录音机
     var reset = document.getElementById('ie_reset');
     var numberOfChannels = document.getElementById('ie_numberOfChannels');
+    var wavSampleRate = document.getElementById('ie_wavSampleRate');
     var bitDepth = document.getElementById('ie_bitDepth');
     var format = document.getElementById('ie_format');
     // 开始录音
@@ -36,8 +37,8 @@ if (!Recorder.isRecordingSupported()) {
         if (!FWRecorder.isReady) {
             FWRecorder.record('audio', 'audio.wav');
         }
-
-        FWRecorder.configure(bitDepth.value, 100, 50, 0);
+        
+        FWRecorder.configure(wavSampleRate.value, 100, 50, 0);
         FWRecorder.setUseEchoSuppression(true);
         FWRecorder.setLoopBack(false);
 
@@ -216,6 +217,7 @@ if (!Recorder.isRecordingSupported()) {
     var init = document.getElementById('init');
     var reset = document.getElementById('reset');
     var numberOfChannels = document.getElementById('numberOfChannels');
+    var wavSampleRate = document.getElementById('wavSampleRate');
     var bitDepth = document.getElementById('bitDepth');
     var format = document.getElementById('format');
     var startButton = document.getElementById('start_recording');
@@ -231,6 +233,7 @@ if (!Recorder.isRecordingSupported()) {
         startButton.disabled = false;
    
         numberOfChannels.disabled = true;
+        wavSampleRate.disabled = true;
         bitDepth.disabled = true;
         format.disabled = true;
 
@@ -277,10 +280,11 @@ if (!Recorder.isRecordingSupported()) {
     // 重置录音机
     reset.addEventListener("click", function () {
         numberOfChannels.disabled = false;
+        wavSampleRate.disabled = false;
         bitDepth.disabled = false;
         format.disabled = false;
         init.disabled = false;
         reset.disabled = true;
-        control.disabled = true;
+        startButton.disabled = true;
     });
 }
