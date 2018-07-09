@@ -16,7 +16,7 @@ if (!Recorder.isRecordingSupported()) {
     var reset = document.getElementById('ie_reset');
     var numberOfChannels = document.getElementById('ie_numberOfChannels');
     var wavSampleRate = document.getElementById('ie_wavSampleRate');
-    var bitDepth = document.getElementById('ie_bitDepth');
+    // var bitDepth = document.getElementById('ie_bitDepth');
     var format = document.getElementById('ie_format');
     // 开始录音
     var record_button = document.getElementById('record_button');
@@ -33,15 +33,7 @@ if (!Recorder.isRecordingSupported()) {
 
     // 创建
     init.addEventListener('click', function () {
-
-        if (!FWRecorder.isReady) {
-            FWRecorder.record('audio', 'audio.wav');
-        }
-        
-        FWRecorder.configure(wavSampleRate.value, 100, 50, 0);
-        FWRecorder.setUseEchoSuppression(true);
-        FWRecorder.setLoopBack(false);
-
+        FWRecorder.record('audio', 'audio.wav');
         init.disabled = true;
         reset.disabled = false;
         record_button.disabled = false;
@@ -50,7 +42,8 @@ if (!Recorder.isRecordingSupported()) {
 
     // 重置
     reset.addEventListener('click', function () {
-        bitDepth.value = 8;
+        wavSampleRate.value = 8;
+        // bitDepth.value = 8;
         init.disabled = false;
         reset.disabled = true;
         record_button.disabled = true;
@@ -60,6 +53,15 @@ if (!Recorder.isRecordingSupported()) {
 
     // 开始录音
     record_button.addEventListener('click', function () {
+
+        if (!FWRecorder.isReady) {
+            return;
+        }
+
+        FWRecorder.configure(wavSampleRate.value, 100, 0, 2000);
+        FWRecorder.setUseEchoSuppression(true);
+        FWRecorder.setLoopBack(false);
+
         FWRecorder.record('audio', 'audio.wav');
         // 切换按钮
         record_button.classList.add('hide');
