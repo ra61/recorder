@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.video-player{
+    width:300px;
+    height:32px;
+    line-height:16px;
+    padding: 8px 10px;
+    background-color: #fafafa;
+}
+
+.duration {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left:0;
+    background: #5a5a5a;
+}
+
+.progressBar {
+    width: 55px;
+    height: 2px;
+    position: relative;
+    display: inline-block;
+    top: -4px;
+}
+.base-active {
+    position: absolute;
+    left:0;
+    top:0;
+    height: 2px;
+    background-color: #4285f4;
+    cursor: pointer;
+}
+
+.progress-active{
+    width: 0px;
+}
+
+.volume-icon{
+    width: 46px;
+    display: inline-block;
+    padding: 0 15px;
+    vertical-align: middle;
+}
+
+.volume-bar{
+    width: 30px;
+    height: 2px;
+    position: relative;
+    display: inline-block;
+    top: -4px;
+}
+
+.volume-active {
+    width: 25px;
+}
+
+.slide {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color:#4285f4;
+    top: -4px;
+    cursor: pointer;
+}
+
+.progress-slide {
+    left: 0px;
+}
+
+.volume-slide{
+    left: 25px;
+}
+
+.control_panel {
+    white-space: nowrap;
+    padding: 0;
+    margin: 2px;
+    vertical-align: middle;
+    height: 24px;
+    background-color: #e7e7e7;
+    position: relative;
+}
+
+.level {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(to right, #8bb300 0%, #3b9d00 100%);
+}
+
+.fs16{
+    font-size: 16px;
+}
+
+.voice-save{
+    width: 36px;
+    display: inline-block;
+    padding: 0 15px;
+}
+
+#play_button,
+#pause_button,
+#volume_up,
+#volume_off,
+#voice_save {
+    font-size: 16px;
+    cursor: pointer;
+}
